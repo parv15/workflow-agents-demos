@@ -1,0 +1,9 @@
+scalekit-sdk-python>=2.16.0
+python-dotenv>=1.0
+pytest>=8.2
+
+# Pinned so `hermes mcp test` can find HTTP transport support. mcp>=2.0 drops
+# streamablehttp_client, a name hermes-agent v0.19.0 still checks for; this is
+# the newest mcp release confirmed to still export it. Install hermes-agent
+# separately (see README) -- it's not a hard dependency of this project's code.
+mcp==1.29.1

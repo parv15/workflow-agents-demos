@@ -1,0 +1,6 @@
+.env
+hermes_mcp_config.snippet.yaml
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
