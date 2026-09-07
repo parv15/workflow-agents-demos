@@ -7,19 +7,21 @@ This is a runnable setup script, not a demo shell. It calls the real `scalekit-s
 ## How it fits together
 
 ```mermaid
-flowchart TD
+flowchart LR
     A["setup_gateway.py"] --> B["sk_gateway.py
     (ScalekitGateway)"]
-    B --> C["1. ensure_connected_account()
-    GitHub OAuth, once per user"]
-    C --> D["2. ensure_mcp_config()
-    connector to tool mapping, reusable"]
-    D --> E["3. ensure_instance()
-    per-user MCP server URL"]
-    E --> F["4. mint_session_token()
-    bearer token for that URL"]
-    F --> G["hermes_mcp_config.snippet.yaml"]
-    G --> H["~/.hermes/config.yaml"]
+    subgraph Steps ["Four provisioning steps"]
+        direction LR
+        C["1. ensure_connected_account()
+        GitHub OAuth, once per user"] --> D["2. ensure_mcp_config()
+        connector to tool mapping"]
+        D --> E["3. ensure_instance()
+        per-user MCP server URL"]
+        E --> F["4. mint_session_token()
+        bearer token for that URL"]
+    end
+    B --> C
+    F --> G["hermes_mcp_config.snippet.yaml"] --> H["~/.hermes/config.yaml"]
 ```
 
 Hermes ends up with **one** `mcp_servers` entry. No GitHub token is ever written to Hermes's config, only a Scalekit session token that expires and gets re-minted by re-running this script.
